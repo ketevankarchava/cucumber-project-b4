@@ -22,4 +22,10 @@ public class DocuportConstants {
     public static final String RESET_PASSWORD_URL = "reset-password";
     public static final String RESET_PASSWORD_MESSAGE = "Enter the email address associated with your account";
     public static final String EMAIL_FOR_RESET_PASSWORD = "forgotpasswordg1@gmail.com";
+
+    public static final int EXTRA_SMALL = 3;
+    public static final int SMALL = 5;
+    public static final int MEDIUM = 7;
+    public static final int LARGE = 10;
+    public static final int EXTRA_LARGE = 20;
 }
