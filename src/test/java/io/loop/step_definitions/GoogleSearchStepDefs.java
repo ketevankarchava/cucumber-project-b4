@@ -9,12 +9,13 @@ import io.loop.utils.ConfigurationReader;
 import io.loop.utils.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-
+import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class GoogleSearchStepDefs {
@@ -34,7 +35,7 @@ public class GoogleSearchStepDefs {
 
         WebElement element = Driver.getDriver().findElement(By.xpath("//iframe[@title='reCAPTCHA']"));
         Driver.getDriver().switchTo().frame(element);
-        if(googleSearchPage.captcha.isDisplayed()){
+        if (googleSearchPage.captcha.isDisplayed()) {
             googleSearchPage.captcha.click();
         }
         Driver.getDriver().switchTo().defaultContent();
@@ -55,12 +56,13 @@ public class GoogleSearchStepDefs {
 
         WebElement element = Driver.getDriver().findElement(By.xpath("//iframe[@title='reCAPTCHA']"));
         Driver.getDriver().switchTo().frame(element);
-        if(googleSearchPage.captcha.isDisplayed()){
+        if (googleSearchPage.captcha.isDisplayed()) {
             googleSearchPage.captcha.click();
         }
         Driver.getDriver().switchTo().defaultContent();
 
     }
+
     @Then("user should see {string} in the google title")
     public void user_should_see_in_the_google_title(String expectedTitle) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
@@ -69,4 +71,39 @@ public class GoogleSearchStepDefs {
         assertEquals("Expected result doesn't match actual result", expectedTitle, actualTitle);
     }
 
+    @Then("user searches the following items")
+    public void user_searches_the_following_items(List<String> items) throws InterruptedException {
+        for (String item : items) {
+            googleSearchPage.searchBox.clear();
+            googleSearchPage.searchBox.sendKeys(item + Keys.ENTER);
+            googleSearchPage.handleCaptcha(Driver.getDriver(), googleSearchPage.captcha);
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.titleContains(item + " - Google Search"));
+            assertEquals("Expected result doesn't match actual result", item + " - Google Search", Driver.getDriver().getTitle());
+        }
+
+    }
+
+    @Then("we love Loop Academy")
+    public void we_love_loop_academy() {
+        System.out.println("We love Loop Academy");
+    }
+
+
+    @When("user search for {string}")
+    public void user_search_for(String country) {
+        googleSearchPage.searchBox.sendKeys("What is the capital of " + country + Keys.ENTER);
+    }
+
+
+    @Then("user should see the {string} in the results")
+    public void user_should_see_the_in_the_results(String capital) {
+        googleSearchPage.handleCaptcha(Driver.getDriver(), googleSearchPage.captcha);
+
+        assertEquals("Expected capital city: " + capital + " does not match with actual one" + googleSearchPage.capital.getText(), capital, googleSearchPage.capital.getText());
+
+
+
+
+    }
 }

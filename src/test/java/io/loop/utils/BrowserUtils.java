@@ -15,12 +15,14 @@ import static org.junit.Assert.assertTrue;
 public class BrowserUtils {
 
     public static Scenario myScenario;
+
     /**
      * takes screenshot
+     *
      * @author nsh
      */
-    public static void takeScreenshot(){
-        try{
+    public static void takeScreenshot() {
+        try {
             myScenario.log("Current url is: " + Driver.getDriver().getCurrentUrl());
             final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             myScenario.attach(screenshot, "image/png", myScenario.getName());
@@ -42,16 +44,16 @@ public class BrowserUtils {
      * implements assertion
      */
 
-    public static void switchWindowAndValidate(WebDriver driver, String expectedUrl, String expectedTitle){
+    public static void switchWindowAndValidate(WebDriver driver, String expectedUrl, String expectedTitle) {
         // to lowercase the params in order to avoid miss type
         expectedTitle = expectedTitle.toLowerCase();
         expectedUrl = expectedUrl.toLowerCase();
 
         // get all window handles, switch one by one and each time check if the url matches expected to stop
-        Set <String> windowHandles = driver.getWindowHandles();
+        Set<String> windowHandles = driver.getWindowHandles();
         for (String each : windowHandles) {
             driver.switchTo().window(each);
-            if (driver.getCurrentUrl().toLowerCase().contains(expectedUrl)){
+            if (driver.getCurrentUrl().toLowerCase().contains(expectedUrl)) {
                 break;
             }
         }
@@ -66,11 +68,11 @@ public class BrowserUtils {
      * @author KK
      */
 
-    public static void switchToWindow(WebDriver driver, String targetTitle){
+    public static void switchToWindow(WebDriver driver, String targetTitle) {
         String origin = driver.getWindowHandle();
-        for(String handle : driver.getWindowHandles()){
+        for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
-            if(driver.getTitle().contains(targetTitle)){
+            if (driver.getTitle().contains(targetTitle)) {
                 return;
             }
         }
@@ -78,10 +80,10 @@ public class BrowserUtils {
     }
 
 
-/**
+    /**
      * click any link from loop practice
-     * @param nameOfPage
-     * author zck
+     *
+     * @param nameOfPage author zck
      */
 
     public static void loopLinkClick(String nameOfPage) {
@@ -93,12 +95,13 @@ public class BrowserUtils {
 
     /**
      * waits for a provided element to be clickable
+     *
      * @param element
      * @param timeout
      * @return
      * @author zck
      */
-    public static WebElement waitForClickable(WebElement element, int timeout){
+    public static WebElement waitForClickable(WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
@@ -106,24 +109,27 @@ public class BrowserUtils {
 
     /**
      * waits for the provided element to be invisible on the page
+     *
      * @param element
      * @param timeToWaitInSec
      * @author zck
      */
-    public static void waitForInvisibility(WebElement element, int timeToWaitInSec){
+    public static void waitForInvisibility(WebElement element, int timeToWaitInSec) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeToWaitInSec));
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
     /**
      * waits for the provided element to be visible
+     *
      * @param element
      * @param timeToWaitSec
      * @return
-     * @author zck
+     * @author KK
      */
-    public static WebElement waitForVisibility(WebElement element, int timeToWaitSec){
+    public static WebElement waitForVisibility(WebElement element, int timeToWaitSec) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeToWaitSec));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
+
 }
