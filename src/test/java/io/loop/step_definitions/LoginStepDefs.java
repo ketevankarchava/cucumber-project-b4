@@ -44,8 +44,6 @@ public class LoginStepDefs {
 
 
 
-
-
     @When("user enters username for employee")
     public void user_enters_username_for_employee() {
         BrowserUtils.waitForClickable(LoginPage.loginButton, DocuportConstants.LARGE);
@@ -62,8 +60,6 @@ public class LoginStepDefs {
     public void user_should_be_able_to_see_the_home_for_employee() {
         assertTrue("Home button is not displayed", loginPage.homeButton.isDisplayed());
     }
-
-
 
 
 
