@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.loop.pages.GoogleSearchPage;
+import io.loop.pages.POM;
 import io.loop.utils.BrowserUtils;
 import io.loop.utils.ConfigurationReader;
 import io.loop.utils.Driver;
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 public class GoogleSearchStepDefs {
 
     GoogleSearchPage googleSearchPage = new GoogleSearchPage();
+    POM pages = new POM();
 
     @Given("user is on Google search page")
     public void user_is_on_google_search_page() {
