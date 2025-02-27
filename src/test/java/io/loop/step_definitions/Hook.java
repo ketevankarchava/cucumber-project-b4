@@ -1,5 +1,7 @@
 package io.loop.step_definitions;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import io.cucumber.java.*;
 import io.loop.utils.BrowserUtils;
 import io.loop.utils.Driver;
@@ -8,10 +10,13 @@ import org.openqa.selenium.TakesScreenshot;
 
 public class Hook {
 
+    private static final Logger LOG = LogManager.getLogger();
+
     @Before
     public void setUp(Scenario scenario){
         Driver.getDriver();
         BrowserUtils.myScenario = scenario;
+        LOG.info("....................START AUTOMATION...............LOOPCAMP");
     }
 
     @After
@@ -21,6 +26,7 @@ public class Hook {
             final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", scenario.getName());
         }
+        LOG.info("....................END AUTOMATION...............LOOPCAMP");
         Driver.closeDriver();
     }
 
