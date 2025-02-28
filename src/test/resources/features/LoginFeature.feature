@@ -4,7 +4,7 @@ Feature: Docuport Login Logout Feature
   Background: this is for navigate Docuport login page
     Given user is on Docuport login page
 
-  @docuport
+  @docuport @smoke
   Scenario: Login as a client
     # Given user is on Docuport login page
     When user enters username for client
@@ -30,7 +30,7 @@ Feature: Docuport Login Logout Feature
     And user clicks login button
     Then user should be able to see the home for supervisor
 
-  @dataTableLogin
+  @dataTableLogin @smoke
   Scenario: Login as a client map practice
     When user enters credentials
       | username | b1g1_client@gmail.com |
