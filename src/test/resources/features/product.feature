@@ -16,7 +16,7 @@ Feature: product data table practice
       | Monitors | ASUS Full HD      | 230           |
 
 
-  @listOfList
+  @listOfList @smoke
 # practice List<List<String>>
   Scenario: verify each product price ListOfList
     Given User is on the HomePage
@@ -42,7 +42,7 @@ Feature: product data table practice
 
 
 
-  @mapList
+  @mapList @smoke
   #practice Map<String, List<String>>
   Scenario: verify students names on discord
     Then user should be able to see the following names in their groups

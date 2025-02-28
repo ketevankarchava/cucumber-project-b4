@@ -8,6 +8,8 @@ import io.loop.utils.BrowserUtils;
 import io.loop.utils.ConfigurationReader;
 import io.loop.utils.DocuportConstants;
 import io.loop.utils.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
@@ -16,31 +18,41 @@ import static org.junit.Assert.assertTrue;
 public class LoginStepDefs {
 
     LoginPage loginPage = new LoginPage();
+    private static final Logger LOG = LogManager.getLogger();
 
     @Given("user is on Docuport login page")
     public void user_is_on_docuport_login_page() {
         Driver.getDriver().get(ConfigurationReader.getProperties("docuportBETA"));
+        BrowserUtils.takeScreenshot();
+        LOG.info("User is on Docuport login page");
+
     }
     @When("user enters username for client")
     public void user_enters_username_for_client() {
         BrowserUtils.waitForClickable(LoginPage.loginButton, DocuportConstants.LARGE);
         assertTrue("Login button is not displayed", loginPage.loginButton.isDisplayed());
         loginPage.usernameInput.sendKeys(DocuportConstants.USERNAME_CLIENT);
+        BrowserUtils.takeScreenshot();
+        LOG.info("User enters username for client");
     }
 
     @When("user enters password for client")
     public void user_enters_password_for_client() {
         loginPage.passwordInput.sendKeys(DocuportConstants.PASSWORD);
+        BrowserUtils.takeScreenshot();
+        LOG.info("User enters password for client");
     }
 
     @When("user clicks login button")
     public void user_clicks_login_button() {
         loginPage.loginButton.click();
+        BrowserUtils.takeScreenshot();
+        LOG.info("User clicks login button");
     }
 
     @Then("user should be able to see the home for client")
     public void user_should_be_able_to_see_the_home_for_client() {
-        assertTrue("Home button is not displayed", loginPage.homeButton.isDisplayed());
+        assertTrue("Home button is not displayed", loginPage.continueButton.isDisplayed());
     }
 
 
