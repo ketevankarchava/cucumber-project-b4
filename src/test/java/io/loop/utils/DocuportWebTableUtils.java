@@ -1,4 +1,4 @@
-package io.loop.utils;
+package io.loop.utilities;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 public class DocuportWebTableUtils {
 
     /**
-     * returns any field from table by given email address
      * @param driver
      * @param emailAddress
      * @param field
@@ -18,55 +17,30 @@ public class DocuportWebTableUtils {
         WebElement element = null;
         String xpath = "";
 
-        switch (field.toLowerCase()){
+        switch (field.toLowerCase().trim()) {
             case "full name":
-                xpath = "//td[2][text()='" + emailAddress + "']/preceding-sibling::td//span[2]";
-                element = driver.findElement(By.xpath(xpath));
+                xpath = "//td[2][normalize-space()='" + emailAddress + "']/preceding-sibling::td//span[2]";
                 break;
-
             case "username":
-                xpath = "//td[2][text()='" + emailAddress +"']/following-sibling::td[1]";
-                element = driver.findElement(By.xpath(xpath));
+                xpath = "//td[2][normalize-space()='" + emailAddress + "']/following-sibling::td[1]";
                 break;
-
             case "inviter":
-                xpath = "//td[2][text()='" + emailAddress +"']/following-sibling::td[2]";
-                element = driver.findElement(By.xpath(xpath));
+                xpath = "//td[2][normalize-space()='" + emailAddress + "']/following-sibling::td[2]";
                 break;
-
             case "phone number":
-                xpath = "//td[2][text()='" + emailAddress +"']/following-sibling::td[3]/span";
-                element = driver.findElement(By.xpath(xpath));
+                xpath = "//td[2][normalize-space()='" + emailAddress + "']/following-sibling::td[3]/span";
                 break;
-
             case "role":
-                xpath = "//td[2][text()='" + emailAddress +"']/following-sibling::td[4]/span/span";
-                element = driver.findElement(By.xpath(xpath));
+                xpath = "//td[2][normalize-space()='" + emailAddress + "']/following-sibling::td[3]/span/span";
                 break;
 
-            case "advisor":
-                xpath = "//td[2][text()='" + emailAddress +"']/following-sibling::td[5]";
-                element = driver.findElement(By.xpath(xpath));
-                break;
-
-            default: throw new InterruptedException("There is no such a field: " + field);
+            default:
+                throw new InterruptedException("There is not such a field: " + field);
         }
 
+        element = driver.findElement(By.xpath(xpath));
         return element.getText().trim();
     }
 
-    public static String returnAnyFieldNewSwitch(WebDriver driver, String emailAddress, String field) throws InterruptedException {
-        String xpath = switch (field.toLowerCase().replace(" ", "_")) {
-            case "full_name" -> "//td[2][text()='" + emailAddress + "']/preceding-sibling::td//span[2]";
-            case "username" -> "//td[2][text()='" + emailAddress + "']/following-sibling::td[1]";
-            case "inviter" -> "//td[2][text()='" + emailAddress + "']/following-sibling::td[2]";
-            case "phone_number" -> "//td[2][text()='" + emailAddress + "']/following-sibling::td[3]/span";
-            case "role" -> "//td[2][text()='" + emailAddress + "']/following-sibling::td[4]/span/span";
-            case "advisor" -> "//td[2][text()='" + emailAddress + "']/following-sibling::td[5]";
-            default -> throw new InterruptedException("No such field exists: " + field);
-        };
 
-        WebElement element = driver.findElement(By.xpath(xpath));
-        return element.getText().trim();
-    }
 }
