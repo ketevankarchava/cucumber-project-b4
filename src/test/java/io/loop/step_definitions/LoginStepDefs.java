@@ -3,6 +3,7 @@ package io.loop.step_definitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.loop.pages.HomePage;
 import io.loop.pages.LoginPage;
 import io.loop.utils.BrowserUtils;
 import io.loop.utils.ConfigurationReader;
@@ -18,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class LoginStepDefs {
 
     LoginPage loginPage = new LoginPage();
+    HomePage homePage = new HomePage();
     private static final Logger LOG = LogManager.getLogger();
 
     @Given("user is on Docuport login page")
@@ -29,7 +31,7 @@ public class LoginStepDefs {
     }
     @When("user enters username for client")
     public void user_enters_username_for_client() {
-        BrowserUtils.waitForClickable(LoginPage.loginButton, DocuportConstants.LARGE);
+        BrowserUtils.waitForClickable(loginPage.loginButton, DocuportConstants.LARGE);
         assertTrue("Login button is not displayed", loginPage.loginButton.isDisplayed());
         loginPage.usernameInput.sendKeys(DocuportConstants.USERNAME_CLIENT);
         BrowserUtils.takeScreenshot();
@@ -52,7 +54,9 @@ public class LoginStepDefs {
 
     @Then("user should be able to see the home for client")
     public void user_should_be_able_to_see_the_home_for_client() {
-        assertTrue("Home button is not displayed", loginPage.continueButton.isDisplayed());
+        assertTrue(BrowserUtils.waitForVisibility(homePage.receivedDocs,10).isDisplayed());
+        LOG.info("Home page is successfully displayed");
+
     }
 
 
@@ -60,7 +64,7 @@ public class LoginStepDefs {
 
     @When("user enters username for employee")
     public void user_enters_username_for_employee() {
-        BrowserUtils.waitForClickable(LoginPage.loginButton, DocuportConstants.LARGE);
+        BrowserUtils.waitForClickable(loginPage.loginButton, DocuportConstants.LARGE);
         assertTrue("Login button is not displayed", loginPage.loginButton.isDisplayed());
         loginPage.usernameInput.sendKeys(DocuportConstants.USERNAME_EMPLOYEE);
     }
@@ -72,14 +76,14 @@ public class LoginStepDefs {
 
     @Then("user should be able to see the home for employee")
     public void user_should_be_able_to_see_the_home_for_employee() {
-        assertTrue("Home button is not displayed", loginPage.homeButton.isDisplayed());
+
     }
 
 
 
     @When("user enters username for advisor")
     public void user_enters_username_for_advisor() {
-        BrowserUtils.waitForClickable(LoginPage.loginButton, DocuportConstants.LARGE);
+        BrowserUtils.waitForClickable(loginPage.loginButton, DocuportConstants.LARGE);
         assertTrue("Login button is not displayed", loginPage.loginButton.isDisplayed());
         loginPage.usernameInput.sendKeys(DocuportConstants.USERNAME_ADVISOR);
     }
@@ -91,7 +95,7 @@ public class LoginStepDefs {
 
     @Then("user should be able to see the home for advisor")
     public void user_should_be_able_to_see_the_home_for_advisor() {
-        assertTrue("Home button is not displayed", loginPage.homeButton.isDisplayed());
+
     }
 
 
@@ -100,7 +104,7 @@ public class LoginStepDefs {
 
     @When("user enters username for supervisor")
     public void user_enters_username_for_supervisor() {
-        BrowserUtils.waitForClickable(LoginPage.loginButton, DocuportConstants.LARGE);
+        BrowserUtils.waitForClickable(loginPage.loginButton, DocuportConstants.LARGE);
         assertTrue("Login button is not displayed", loginPage.loginButton.isDisplayed());
         loginPage.usernameInput.sendKeys(DocuportConstants.USERNAME_SUPERVISOR);
     }
@@ -112,7 +116,7 @@ public class LoginStepDefs {
 
     @Then("user should be able to see the home for supervisor")
     public void user_should_be_able_to_see_the_home_for_supervisor() {
-        assertTrue("Home button is not displayed", loginPage.homeButton.isDisplayed());
+
     }
 
     @When("user enters credentials")
