@@ -59,6 +59,10 @@ public class LeftNavigatePage {
                 BrowserUtils.waitForClickable(clientsButton, 10).click();
                 break;
 
+            case "my uploads":
+                BrowserUtils.waitForClickable(myUploads, 10).click();
+                break;
+
             default: throw new IllegalArgumentException("Not such a button: " + button);
         }
     }

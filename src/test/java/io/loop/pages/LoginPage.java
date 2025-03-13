@@ -5,11 +5,16 @@ import io.loop.utils.BrowserUtils;
 import io.loop.utils.ConfigurationReader;
 import io.loop.utils.DocuportConstants;
 import io.loop.utils.Driver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LoginPage {
 
@@ -102,5 +107,6 @@ public class LoginPage {
             continueButton.click();
         }
     }
+
 
 }

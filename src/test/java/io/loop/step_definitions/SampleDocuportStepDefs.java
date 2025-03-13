@@ -2,12 +2,12 @@ package io.loop.step_definitions;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.loop.pages.HomePage;
-import io.loop.pages.LeftNavigatePage;
-import io.loop.pages.LoginPage;
-import io.loop.pages.ReceivedDocsPage;
+import io.loop.pages.*;
+import io.loop.utils.BrowserUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.awt.*;
 
 
 public class SampleDocuportStepDefs {
@@ -15,6 +15,7 @@ public class SampleDocuportStepDefs {
     LoginPage loginPage = new LoginPage();
     ReceivedDocsPage receivedDocsPage = new ReceivedDocsPage();
     LeftNavigatePage leftNavigatePage = new LeftNavigatePage();
+    MyUploadsPage myUploadsPage = new MyUploadsPage();
     private static final Logger LOG = LogManager.getLogger();
 
     @When("user inserts {string} to {string} field on {string} page")
@@ -28,9 +29,6 @@ public class SampleDocuportStepDefs {
                 receivedDocsPage.insertField(field, input);
                 LOG.info(input + " - was successfully sent to -  " + field);
                 break;
-            case "tax return":
-                receivedDocsPage.insertField(field, input);
-                LOG.info(input + " - was successfully sent to -  " + field);
             default: throw new IllegalArgumentException("not such a page: " + page);
 
         }
@@ -50,17 +48,21 @@ public class SampleDocuportStepDefs {
                 receivedDocsPage.clickButton(button);
                 LOG.info(button + " - was successfully clicked");
                 break;
+            case "my uploads":
+                myUploadsPage.clickButton(button);
+                LOG.info(button + " - was successfully clicked");
+                break;
             default: throw new IllegalArgumentException("not such a page: " + page);
         }
     }
 
-    @Then("user clicks {string} on {string} page")
-    public void user_clicks_on_page(String string, String string2) {
+    @Then("user uploads document")
+    public void user_uploads_document() throws AWTException {
 
-    }
+//        WebElement element = Driver.getDriver().findElement(By.xpath("//input[@type='file']"));
+//        element.sendKeys("/Users/nsh/Desktop/text.txt");
 
-    @Then("user validates message {string}")
-    public void user_validates_message(String string) {
+        BrowserUtils.uploadFileForWindows("\"C:\\Users\\KETO\\Desktop\\text.txt.txt\"");
 
     }
 }

@@ -11,8 +11,8 @@ Feature: Docuport Sample Scenario
     And user clicks "Received Doc" button on "Left Navigate" page
     And user clicks "Search" button on "Received Doc" page
     And user inserts "tax document" to "Document name" field on "Received Doc" page
-    And user inserts "tax return" to "Tags" field on "Received Doc" page
-    And user inserts "3-5-2025" to "Upload date" field on "Received Doc" page
-    And user inserts "batch1 group1" to "Uploaded by" field on "Received Doc" page
-    Then user clicks "Search" on "Received Doc" page
-    And user validates message "Your search returned no results. Make sure you search properly"
+    And user clicks "My uploads" button on "Left Navigate" page
+    And user clicks "Upload Documents" button on "My uploads" page
+    # if input type works you do not need below step
+    And user clicks "Upload file" button on "My uploads" page
+    And user uploads document
