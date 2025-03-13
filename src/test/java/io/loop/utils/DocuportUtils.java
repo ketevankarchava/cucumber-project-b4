@@ -62,11 +62,11 @@ public static void login(WebDriver driver, String role) throws InterruptedExcept
  */
 
 public static void logout(WebDriver driver) {
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
     WebElement userIcon = driver.findElement(By.xpath("//div[@class='v-avatar primary']"));
     userIcon.click();
 
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
     WebElement logoutButton = driver.findElement(By.xpath("//span[contains(text(),'Log out')]"));
     logoutButton.click();
 }
