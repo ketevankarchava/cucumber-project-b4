@@ -2,6 +2,8 @@ package io.loop.pages;
 
 import io.loop.utils.BrowserUtils;
 import io.loop.utils.Driver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -40,7 +42,11 @@ public class LeftNavigatePage {
                 BrowserUtils.waitForClickable(receivedDocsButton, 10).click();
                 break;
             case "home":
-                BrowserUtils.waitForClickable(homeButton, 10).click();
+                try {
+                    BrowserUtils.waitForClickable(homeButton, 10).click();
+                } catch (StaleElementReferenceException stl){
+                    WebElement element = Driver.getDriver().findElement(By.xpath("//span[contains(text(),'Home')]"));
+                }
                 break;
 
             case "upload":
