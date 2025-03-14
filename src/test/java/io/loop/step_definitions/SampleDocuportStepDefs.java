@@ -52,6 +52,10 @@ public class SampleDocuportStepDefs {
                 myUploadsPage.clickButton(button);
                 LOG.info(button + " - was successfully clicked");
                 break;
+            case "home":
+                leftNavigatePage.clickButton(button);
+                LOG.info(button + " - was successfully clicked");
+                break;
             default: throw new IllegalArgumentException("not such a page: " + page);
         }
     }
